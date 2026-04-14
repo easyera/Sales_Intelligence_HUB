@@ -1,48 +1,53 @@
-# Sales_Intelligence_HUB
-a simple streamlit application for Branch-Based Sales Management System.
+# Sales Intelligence Hub
+
+A simple Streamlit application for Branch-Based Sales Management System.
+
 ## ⚙️ Setup Instructions
 
 ### 1. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Database Setup
-Open `config/db.py` and update your MySQL credentials:
-```python
-def get_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="your_username",
-        password="your_password",
-        database="Sales_Management_System"
-    )
+### 2. Configure Database Credentials
+
+This project loads database settings from environment variables using `python-dotenv`.
+
+Create or update the `.env` file in the project root with your MySQL settings:
+
+```env
+DB_HOST=localhost
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=Sales_Management_System
+# Optional: uncomment if your database uses a custom port
+# DB_PORT=3306
 ```
+
+> `config/db.py` reads `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, and optional `DB_PORT`.
 
 ### 3. Create Database & Tables
-Open `config/create_db.py`:
 
-**Step 1** — Comment out the `database` field in `get_connection()` inside `db.py`:
-```python
-# database="Sales_Management_System"  ← comment this
-```
-Uncomment `create_database()` at the bottom of `create_db.py` and run:
+The database creation helper is in `config/Dbcreation.py`.
+
+1. Ensure your `.env` file is configured.
+2. If the database does not exist yet, create it manually in MySQL or use a MySQL client first.
+3. Run the helper script:
+
 ```bash
-python config/create_db.py
+python config/Dbcreation.py
 ```
 
-**Step 2** — Uncomment the `database` field back in `db.py`:
-```python
-database="Sales_Management_System"  ← uncomment this
-```
-Now uncomment all remaining functions in `create_db.py` and run again:
-```bash
-python config/create_db.py
-```
-
-This will create all tables and triggers. ✅
+The file contains definitions for creating the database, tables, and triggers. Uncomment the bottom function calls in `config/Dbcreation.py` as needed before running the script.
 
 ### 4. Run the App
+
 ```bash
 streamlit run main.py
 ```
+
+## Notes
+
+- `config/db.py` will raise an error if `DB_USER`, `DB_PASSWORD`, or `DB_NAME` are missing.
+- Keep your `.env` file private and do not commit it to source control.
