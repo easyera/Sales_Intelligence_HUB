@@ -89,10 +89,12 @@ def create_trigger2():
             """
     execute_query(query)
 
-# create_database()
+
+# create_database() # only uncomment this line if you want to create database first time
+# then run the rest of the code to create tables and triggers
 # branches_Table()
 # customersSales_Table()
 # user_Table()
 # paymentSplit_Table()
 # create_trigger1()
-create_trigger2()
+# create_trigger2()
